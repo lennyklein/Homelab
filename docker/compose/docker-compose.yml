@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # Beispiel für einen Basis-Webserver oder Reverse Proxy
+  web-proxy:
+    image: nginx:latest
+    container_name: homelab-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/html:/usr/share/nginx/html
+    networks:
+      - homelab-net
+
+networks:
+  homelab-net:
+    driver: bridge
